@@ -1,0 +1,43 @@
+# ADSB Setup
+
+This is my custom ADSB setup I have running at home on a Raspberry Pi 5. I have it running with [Ultrafeeder](https://sdr-enthusiasts.gitbook.io/ads-b/intro/overview), and this currently only feeds adsb.lol and FlightRadar24. In the future I hope to also add FlightAware.
+
+## Prerequisites
+
+- Raspberry Pi (4 or 5 works) with Raspberry Pi OS Lite installed (full desktop install will also work)
+- Docker installed onto the Raspberry Pi
+  - Note: For Pi5, just follow the debian instructions
+
+## Environment Setup
+
+If this is the first time doing this, follow the [Deploy Ultrafeeder](https://sdr-enthusiasts.gitbook.io/ads-b/foundations/deploy-ultrafeeder-container) doc, then follow the docs in the _Feeder Containers_ section for each feeder that needs to be setup.
+
+Below is the current state of what I have setup in my `.envrc`, the ones that are blank must be set.
+
+```
+export ULTRAFEEDER_UUID=
+export FEEDER_ALT_FT=
+export FEEDER_ALT_M=
+export FEEDER_LAT=
+export FEEDER_LONG=
+export FEEDER_TZ=
+export FEEDER_NAME=
+export ADSB_SDR_SERIAL=1090
+export ADSB_SDR_GAIN=autogain
+export ADSB_SDR_PPM=59
+export FEEDER_HEYWHATSTHAT_ID=
+export FEEDER_HEYWHATSTHAT_ALTS=
+export ADSBFI_UUID=
+export ADSB_LOL_UUID=
+export AIRPLANES_LIVE_UUID=
+export PLANESPOTTERS_UUID=
+export AIRTRAFFIC_COM_UUID=
+export FR24_SHARING_KEY=
+export FR24_RADAR_ID=
+```
+
+## Usage
+
+```
+docker compose up -d
+```
