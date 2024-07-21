@@ -53,6 +53,8 @@ services:
         mlat,feed.airplanes.live,31090,39002;
         mlat,mlat.planespotters.net,31090,39003;
         mlat,feed.theairtraffic.com,31090,39004;
+        mlathub,piaware,30105,beast_in;
+        mlathub,rbfeeder,30105,beast_in;
         #adsb,data.avdelphi.com,24999,beast_reduce_plus_out;
         #adsb,skyfeed.hpradar.com,30004,beast_reduce_plus_out;
         #adsb,feed.radarplane.com,30001,beast_reduce_plus_out;
@@ -60,8 +62,6 @@ services:
         #mlat,skyfeed.hpradar.com,31090,39005;
         #mlat,feed.radarplane.com,31090,39006;
         #mlat,dati.flyitalyadsb.com,30100,39007;
-        #mlathub,piaware,30105,beast_in;
-        #mlathub,rbfeeder,30105,beast_in;
         #mlathub,radarvirtuel,30105,beast_in;
         #mlathub,planewatch,30105,beast_in
       # If you really want to feed ADSBExchange, you can do so by adding this above:
@@ -143,7 +143,7 @@ services:
       - GF_PANELS_DISABLE_SANITIZE_HTML=true
     volumes:
       - grafana_data:/var/lib/grafana
-    
+
   fr24:
     image: ghcr.io/sdr-enthusiasts/docker-flightradar24:latest
     tty: true
@@ -155,4 +155,36 @@ services:
       - BEASTHOST=ultrafeeder
       - FR24KEY=${FR24_SHARING_KEY}
     tmpfs:
+      - /var/log
+
+  piaware:
+    image: ghcr.io/sdr-enthusiasts/docker-piaware:latest
+    tty: true
+    container_name: piaware
+    restart: unless-stopped
+    ports:
+      - 8081:8080
+    environment:
+      - BEASTHOST=ultrafeeder
+      - TZ=${FEEDER_TZ}
+      - FEEDER_ID=${PIAWARE_FEEDER_ID}
+    tmpfs:
+      - /run:exec,size=64M
+      - /var/log
+
+
+  rbfeeder:
+    image: ghcr.io/sdr-enthusiasts/docker-radarbox:latest
+    tty: true
+    container_name: rbfeeder
+    restart: unless-stopped
+    environment:
+      - BEASTHOST=ultrafeeder
+      - LAT=${FEEDER_LAT}
+      - LONG=${FEEDER_LONG}
+      - ALT=${FEEDER_ALT_M}
+      - TZ=${FEEDER_TZ}
+      - SHARING_KEY=${RADARBOX_SHARING_KEY}
+    tmpfs:
+      - /run:exec,size=64M
       - /var/log

@@ -1,6 +1,13 @@
 # ADSB Setup
 
-This is my custom ADSB setup I have running at home on a Raspberry Pi 5. I have it running with [Ultrafeeder](https://sdr-enthusiasts.gitbook.io/ads-b/intro/overview), and this currently only feeds adsb.lol and FlightRadar24. In the future I hope to also add FlightAware.
+This is my custom ADSB setup I have running at home on a Raspberry Pi 5. I have it running with [Ultrafeeder](https://sdr-enthusiasts.gitbook.io/ads-b/intro/overview), and this currently feeds the following sources:
+
+- Flightradar24
+- FlightAware
+- RadarBox
+- ADSB.lol
+- airplanes.live
+- theairtraffic.com
 
 ## Prerequisites
 
@@ -32,8 +39,16 @@ export ADSB_LOL_UUID=
 export AIRPLANES_LIVE_UUID=
 export PLANESPOTTERS_UUID=
 export AIRTRAFFIC_COM_UUID=
+
+# FlightRadar24
 export FR24_SHARING_KEY=
 export FR24_RADAR_ID=
+
+# FlightAware (PiAware)
+export PIAWARE_FEEDER_ID=
+
+# RadarBox
+export RADARBOX_SHARING_KEY=
 ```
 
 ## Usage
