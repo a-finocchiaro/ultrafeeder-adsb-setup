@@ -56,3 +56,12 @@ export RADARBOX_SHARING_KEY=
 ```
 docker compose up -d
 ```
+
+## Monitoring
+
+This also runs Prometheus and Grafana for monitoring of both the system and the ADSB data metrics. The monitoring stack includes:
+
+- prometheus (port `9090`)
+- grafana (UI on port `3000`)
+- cadvisor (forwarded to port `8082`; container port `8080`)
+- node-exporter (port `9100`)
